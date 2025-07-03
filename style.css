@@ -9,12 +9,16 @@ body {
   line-height: 1.6;
   color: #333;
   background-color: #f8f9fa;
+   opacity: 0;
+  animation: sectionFadeIn 1.2s 0.2s forwards;
 }
 
+/* General Responsive Container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  width: 100%;
 }
 
 /* Navigation */
@@ -112,10 +116,21 @@ body {
   display: none;
   padding-top: 90px;
   min-height: 100vh;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: sectionFadeIn 1.2s 0.2s forwards;
 }
 
 .section.active {
   display: block;
+  /* animation will play when .active is added */
+}
+
+@keyframes sectionFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Hero Section */
@@ -126,6 +141,8 @@ body {
   padding: 60px 20px;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
+  gap: 40px;
 }
 
 .hero-content {
@@ -189,14 +206,34 @@ body {
 }
 
 .hero-image {
-  flex: 1;
-  text-align: center;
-  color: #2c5aa0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
 }
 
-.hero-image i {
-  font-size: 300px;
-  opacity: 0.1;
+.hero-image .responsive-photo {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(44, 90, 160, 0.12), 0 1.5px 6px rgba(44, 90, 160, 0.07);
+  transition: transform 0.5s cubic-bezier(.4, 2, .6, 1), box-shadow 0.5s;
+  opacity: 0;
+  transform: scale(0.95) translateY(30px);
+  animation: photoFadeIn 1.2s 0.2s forwards;
+}
+
+.hero-image .responsive-photo:hover {
+  transform: scale(1.03) translateY(-5px);
+  box-shadow: 0 16px 48px rgba(44, 90, 160, 0.18), 0 3px 12px rgba(44, 90, 160, 0.10);
+}
+
+@keyframes photoFadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* Stats */
@@ -207,6 +244,8 @@ body {
   padding: 60px 20px;
   background: white;
   margin: 40px 0;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .stat {
@@ -246,28 +285,33 @@ body {
         flex-direction: column;
         align-items: center;
         gap: 1.5rem;
+        padding: 40px 10px;
     }
     .stat {
         width: 100%;
         text-align: center;
     }
-    .stat h3 {
-        font-size: 2rem;
-    }
-    .stat p {
-        font-size: 1rem;
+    .hero-content h1 {
+      font-size: 2.2rem;
     }
 }
 
 @media (max-width: 480px) {
+    .container {
+      padding: 0 8px;
+    }
+    .hero-content h1 {
+      font-size: 1.5rem;
+    }
     .stats {
-        gap: 1rem;
+      gap: 1rem;
+      padding: 20px 2px;
     }
     .stat h3 {
-        font-size: 1.5rem;
+      font-size: 1.2rem;
     }
     .stat p {
-        font-size: 0.95rem;
+      font-size: 0.95rem;
     }
 }
 
@@ -896,6 +940,50 @@ form button[type="submit"] {
 }
 
 /* Responsive Design */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+    padding: 40px 10px;
+  }
+  .hero-content {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+  .hero-search {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hero-features {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.3rem;
+  }
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+  .hero-search input,
+  .hero-search button {
+    font-size: 1rem;
+    padding: 12px;
+  }
+}
+
 @media (max-width: 768px) {
   .nav-menu {
     display: none;
@@ -984,6 +1072,11 @@ form button[type="submit"] {
     margin: 10% auto;
     width: 95%;
   }
+
+  .hero-image .responsive-photo {
+    max-width: 90vw;
+    border-radius: 16px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1011,6 +1104,11 @@ form button[type="submit"] {
   .pharmacy-card,
   .medicine-card {
     padding: 15px;
+  }
+
+  .hero-image .responsive-photo {
+    max-width: 98vw;
+    border-radius: 12px;
   }
 }
 
