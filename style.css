@@ -991,3 +991,16 @@ form button[type="submit"] {
     padding: 15px;
   }
 }
+
+@media (max-width: 600px) {
+  .nav-logo .logo-link span {
+    font-size: 18px;
+  }
+  .nav-logo .logo-link i {
+    font-size: 22px;
+    margin-right: 6px;
+  }
+  .nav-logo {
+    min-width: 0;
+  }
+}
