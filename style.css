@@ -899,6 +899,28 @@ form button[type="submit"] {
 @media (max-width: 768px) {
   .nav-menu {
     display: none;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: #fff;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    z-index: 1001;
+  }
+  .nav-menu.active {
+    display: flex;
+  }
+  .nav-link, .login-btn {
+    padding: 18px 0;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    text-align: left;
+    justify-content: flex-start;
+  }
+  .nav-menu {
+    display: none;
   }
 
   .hamburger {
