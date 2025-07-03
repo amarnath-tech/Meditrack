@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediTrack - Real-Time Medicine Availability & Expiry Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#" class="logo-link" onclick="showSection('home'); return false;">
+                    <i class="fas fa-pills"></i>
+                    <span>MediTrack</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="#" class="nav-link" onclick="showSection('home')">Home</a>
+                <a href="#" class="nav-link" onclick="showSection('search')">Search Medicine</a>
+                <a href="#" class="nav-link" onclick="showSection('pharmacy')">Pharmacy</a>
+                <a href="#" class="nav-link" onclick="showSection('admin')">Admin</a>
+                <button class="login-btn" onclick="showLoginModal()">Login</button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Find Medicines Instantly</h1>
+                <p>Real-time medicine availability and expiry tracking across pharmacies near you</p>
+                <div class="hero-search">
+                    <input type="text" placeholder="Search for medicine..." id="heroSearch">
+                    <button onclick="searchFromHero()"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Location-Based Search</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-clock"></i>
+                        <span>Real-Time Availability</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Expiry Tracking</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <i class="fas fa-hospital-alt"></i>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <h3>500+</h3>
+                <p>Registered Pharmacies</p>
+            </div>
+            <div class="stat">
+                <h3>10,000+</h3>
+                <p>Medicines Tracked</p>
+            </div>
+            <div class="stat">
+                <h3>50,000+</h3>
+                <p>Happy Users</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section id="search" class="section">
+        <div class="container">
+            <h2>Search Medicines</h2>
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="medicineSearch" placeholder="Enter medicine name...">
+                    <button onclick="searchMedicine()"><i class="fas fa-search"></i></button>
+                    <button onclick="scanBarcode()" class="scan-btn"><i class="fas fa-qrcode"></i> Scan</button>
+                </div>
+                <div class="filters">
+                    <select id="locationFilter">
+                        <option value="">All Locations</option>
+                        <option value="nearby">Within 2km</option>
+                        <option value="city">Within City</option>
+                    </select>
+                    <select id="priceFilter">
+                        <option value="">All Prices</option>
+                        <option value="low">Under ₹50</option>
+                        <option value="medium">₹50 - ₹200</option>
+                        <option value="high">Above ₹200</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="searchResults" class="search-results"></div>
+            
+            <div class="alerts-section">
+                <h3>Your Restock Alerts</h3>
+                <div id="alertsList" class="alerts-list"></div>
+                <button onclick="showAlertModal()" class="add-alert-btn">
+                    <i class="fas fa-plus"></i> Add Alert
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pharmacy Section -->
+    <section id="pharmacy" class="section">
+        <div class="container">
+            <div class="pharmacy-header">
+                <h2>Pharmacy Dashboard</h2>
+                <div class="pharmacy-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-boxes"></i>
+                        <div>
+                            <h4>Total Stock</h4>
+                            <span>1,247 items</span>
+                        </div>
+                    </div>
+                    <div class="stat-card warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <h4>Expiring Soon</h4>
+                            <span>23 items</span>
+                        </div>
+                    </div>
+                    <div class="stat-card success">
+                        <i class="fas fa-shopping-cart"></i>
+                        <div>
+                            <h4>Orders Today</h4>
+                            <span>45 orders</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pharmacy-content">
+                <div class="inventory-section">
+                    <div class="section-header">
+                        <h3>Inventory Management</h3>
+                        <button onclick="showAddMedicineModal()" class="add-btn">
+                            <i class="fas fa-plus"></i> Add Medicine
+                        </button>
+                    </div>
+                    <div class="inventory-table">
+                        <table id="inventoryTable">
+                            <thead>
+                                <tr>
+                                    <th>Medicine</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Expiry Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventoryBody">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="orders-section">
+                    <h3>Recent Orders</h3>
+                    <div id="ordersList" class="orders-list"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Section -->
+    <section id="admin" class="section">
+        <div class="container">
+            <h2>Admin Panel</h2>
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="showAdminTab('pharmacies')">Pharmacies</button>
+                <button class="tab-btn" onclick="showAdminTab('analytics')">Analytics</button>
+                <button class="tab-btn" onclick="showAdminTab('reports')">Reports</button>
+            </div>
+
+            <div id="pharmacies-tab" class="admin-tab-content active">
+                <div class="section-header">
+                    <h3>Pharmacy Registrations</h3>
+                    <div class="admin-filters">
+                        <select>
+                            <option>All Status</option>
+                            <option>Pending</option>
+                            <option>Approved</option>
+                            <option>Rejected</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="pharmacies-grid" id="pharmaciesGrid"></div>
+            </div>
+
+            <div id="analytics-tab" class="admin-tab-content">
+                <div class="analytics-cards">
+                    <div class="analytics-card">
+                        <h4>Total Searches Today</h4>
+                        <div class="big-number">2,847</div>
+                        <span class="trend up">+12% from yesterday</span>
+                    </div>
+                    <div class="analytics-card">
+                        <h4>Active Pharmacies</h4>
+                        <div class="big-number">487</div>
+                        <span class="trend up">+5 new this week</span>
+                    </div>
+                    <div class="analytics-card">
+                        <h4>Medicines Out of Stock</h4>
+                        <div class="big-number">156</div>
+                        <span class="trend down">-8% from last week</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="analyticsChart"></canvas>
+                </div>
+            </div>
+
+            <div id="reports-tab" class="admin-tab-content">
+                <div class="reports-section">
+                    <h3>Generate Reports</h3>
+                    <div class="report-options">
+                        <button class="report-btn">Medicine Availability Report</button>
+                        <button class="report-btn">Pharmacy Performance Report</button>
+                        <button class="report-btn">Expiry Tracking Report</button>
+                        <button class="report-btn">User Activity Report</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h3>Login to MediTrack</h3>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>User Type</label>
+                    <select id="userType">
+                        <option value="user">Patient/User</option>
+                        <option value="pharmacy">Pharmacy</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phoneNumber" placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter your password">
+                </div>
+                <button type="submit">Login</button>
+                <p>Don't have an account? <a href="#" onclick="showRegisterModal()">Register here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('alertModal')">&times;</span>
+            <h3>Set Restock Alert</h3>
+            <form id="alertForm">
+                <div class="form-group">
+                    <label>Medicine Name</label>
+                    <input type="text" id="alertMedicine" placeholder="Enter medicine name">
+                </div>
+                <div class="form-group">
+                    <label>Location Preference</label>
+                    <select id="alertLocation">
+                        <option value="nearby">Within 2km</option>
+                        <option value="city">Within City</option>
+                        <option value="any">Any Location</option>
+                    </select>
+                </div>
+                <button type="submit">Set Alert</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addMedicineModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addMedicineModal')">&times;</span>
+            <h3>Add Medicine to Inventory</h3>
+            <form id="addMedicineForm">
+                <div class="form-group">
+                    <label>Medicine Name</label>
+                    <input type="text" id="medicineName" placeholder="Enter medicine name">
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" id="medicineQuantity" placeholder="Enter quantity">
+                </div>
+                <div class="form-group">
+                    <label>Price (₹)</label>
+                    <input type="number" id="medicinePrice" placeholder="Enter price">
+                </div>
+                <div class="form-group">
+                    <label>Expiry Date</label>
+                    <input type="date" id="medicineExpiry">
+                </div>
+                <div class="form-group">
+                    <label>Batch Number</label>
+                    <input type="text" id="medicineBatch" placeholder="Enter batch number">
+                </div>
+                <button type="submit">Add Medicine</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notifications -->
+    <div id="notifications" class="notifications"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>MediTrack</h4>
+                    <p>Making healthcare accessible through technology</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#">About Us</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">Report Issue</a>
+                    <a href="#">Feedback</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MediTrack. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
