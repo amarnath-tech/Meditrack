@@ -186,9 +186,9 @@
         <div class="container">
             <h2>Admin Panel</h2>
             <div class="admin-tabs">
-                <button class="tab-btn active" onclick="showAdminTab('pharmacies')">Pharmacies</button>
-                <button class="tab-btn" onclick="showAdminTab('analytics')">Analytics</button>
-                <button class="tab-btn" onclick="showAdminTab('reports')">Reports</button>
+                <button class="tab-btn active" data-tab="pharmacies">Pharmacies</button>
+                <button class="tab-btn" data-tab="analytics">Analytics</button>
+                <button class="tab-btn" data-tab="reports">Reports</button>
             </div>
 
             <div id="pharmacies-tab" class="admin-tab-content active">
@@ -210,18 +210,18 @@
                 <div class="analytics-cards">
                     <div class="analytics-card">
                         <h4>Total Searches Today</h4>
-                        <div class="big-number">2,847</div>
-                        <span class="trend up">+12% from yesterday</span>
+                        <div class="big-number" data-target="2847">0</div>
+                        <span class="trend up"><i class="fas fa-arrow-up"></i> +12% from yesterday</span>
                     </div>
                     <div class="analytics-card">
                         <h4>Active Pharmacies</h4>
-                        <div class="big-number">487</div>
-                        <span class="trend up">+5 new this week</span>
+                        <div class="big-number" data-target="487">0</div>
+                        <span class="trend up"><i class="fas fa-plus"></i> +5 new this week</span>
                     </div>
                     <div class="analytics-card">
                         <h4>Medicines Out of Stock</h4>
-                        <div class="big-number">156</div>
-                        <span class="trend down">-8% from last week</span>
+                        <div class="big-number" data-target="156">0</div>
+                        <span class="trend down"><i class="fas fa-arrow-down"></i> -8% from last week</span>
                     </div>
                 </div>
                 <div class="chart-container">
@@ -333,12 +333,28 @@
                 <div class="footer-section">
                     <h4>MediTrack</h4>
                     <p>Making healthcare accessible through technology</p>
+                    <br>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="privacy.html">Privacy Policy</a>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
-                    <a href="#">About Us</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Privacy Policy</a>
+                    <a href="mailto:ghoshamarnath06@gmail.com" target="_blank">
+        <i class="fas fa-envelope"></i> Email
+    </a>
+    <a href="tel:+919907779569">
+        <i class="fas fa-phone"></i> 9907779569
+    </a>
+    <a href="https://www.linkedin.com/in/amarnath-ghosh-559456260/" target="_blank">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+    <a href="https://github.com/amarnath-tech" target="_blank">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://x.com/Amarnat10295456" target="_blank">
+        <i class="fab fa-twitter"></i> X (Twitter)
+    </a>
                 </div>
                 <div class="footer-section">
                     <h4>Support</h4>

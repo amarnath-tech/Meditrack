@@ -751,6 +751,12 @@ th {
   color: #dc3545;
 }
 
+.trend i {
+  margin-right: 4px;
+  font-size: 1em;
+  vertical-align: middle;
+}
+
 .chart-container {
   background: white;
   padding: 30px;
@@ -930,6 +936,12 @@ form button[type="submit"] {
 
 .footer-section a:hover {
   color: white;
+}
+
+.footer-section a i {
+  margin-right: 8px;
+  color: #2c5aa0;
+  vertical-align: middle;
 }
 
 .footer-bottom {

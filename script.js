@@ -519,6 +519,21 @@ function setupEventListeners() {
       e.target.style.display = "none"
     }
   })
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      // Remove active from all
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      // Add active to clicked
+      this.classList.add('active');
+      // Show the corresponding tab content
+      const tab = this.getAttribute('data-tab');
+      document.querySelectorAll('.admin-tab-content').forEach(tc => tc.classList.remove('active'));
+      document.getElementById(tab + '-tab').classList.add('active');
+      // Optionally trigger analytics animation
+      if (tab === 'analytics') animateAdminAnalyticsNumbers();
+    });
+  });
 }
 
 // Utility functions
@@ -582,6 +597,39 @@ function animateStatNumber(el) {
     el.dataset.animated = "true";
     el.textContent = "0+";
     update();
+  }
+}
+
+// Admin analytics number animation
+function animateAdminAnalyticsNumbers() {
+  document.querySelectorAll('#analytics-tab .big-number').forEach(function(el) {
+    const target = parseInt(el.dataset.target, 10);
+    let count = 0;
+    const duration = 1200;
+    const step = Math.ceil(target / (duration / 16));
+    function update() {
+      count += step;
+      if (count >= target) {
+        el.textContent = target.toLocaleString();
+      } else {
+        el.textContent = count.toLocaleString();
+        requestAnimationFrame(update);
+      }
+    }
+    if (!el.dataset.animated) {
+      el.dataset.animated = "true";
+      el.textContent = "0";
+      update();
+    }
+  });
+}
+
+// Call this when the analytics tab is shown
+function showAdminTab(tab) {
+  document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.remove('active'));
+  document.getElementById(tab + '-tab').classList.add('active');
+  if (tab === 'analytics') {
+    animateAdminAnalyticsNumbers();
   }
 }
 
