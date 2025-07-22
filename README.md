@@ -53,5 +53,5 @@ MediTrack solves these with a simple, fast, and effective system that connects b
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/meditrack.git
+git clone https://github.com/not-amarnath/meditrack.git
 cd meditrack
